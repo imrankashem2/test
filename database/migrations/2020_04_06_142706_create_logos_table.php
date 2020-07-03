@@ -15,10 +15,9 @@ class CreateLogosTable extends Migration
     {
         Schema::create('logos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title')->nullable();
+
             $table->text('logoImage')->nullable();
-            $table->bigInteger('head_ads')->nullable();
-            $table->integer('front_ticker')->nullable();
+
             $table->timestamps();
         });
     }

@@ -3,7 +3,7 @@
 <main>
     <div class="container-fluid">
     <div class="row" style="margin-top:50px;">
-        <a   href="http://ifwl-bd.com/news/add"> <button type="button" class="btn btn-primary">
+    <a   href="{{route('news')}}"> <button type="button" class="btn btn-primary">
             <svg class="svg-inline--fa fa-plus-square fa-w-14" aria-hidden="true" focusable="false"
             data-prefix="fas" data-icon="plus-square" role="img" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor"
@@ -17,7 +17,7 @@
             Add news
         </div>
         <div class="card-body">
-
+        <form action="{{route('newsSave')}}" method="POST" enctype="multipart/form-data">@csrf
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
                     <div class="col-sm-10">
@@ -29,15 +29,10 @@
                     <div class="col-sm-10">
                         <select class="form-control" name="category">
                             <option value=""> Select News Category </option>
-                                                                <option value="1">Bangladesh</option>
-                                                                <option value="2">International</option>
-                                                                <option value="3">Sports</option>
-                                                                <option value="4">Opinion</option>
-                                                                <option value="5">Economy</option>
-                                                                <option value="6">Entertainment</option>
-                                                                <option value="7">Lifestyle</option>
-                                                                <option value="8">Science &amp; Tech</option>
-                                                            </select>
+                            @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->categoryName}}</option>
+                            @endforeach
+                            </select>
                     </div>
                 </div>
 
@@ -45,11 +40,7 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Information</label>
                     <div class="col-sm-10">
-                        <textarea id="textareaa" class="form-control" name="information"
-
-                        style="visibility: hidden; display: none;">
-
-                        </textarea>
+                        <textarea  id="froala-editor" class="form-control" name="information"></textarea>
 
                     </div>
                 </div>
@@ -78,13 +69,17 @@
                         </select>
                     </div>
 
-
-
-
             </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-sm btn-success" style="width:10%; height:10; margin-left:10px">Save</button>
+                </div>
+            </form>
         </div>
 
     </div>
 
     </div></main>
+    <script>
+        new FroalaEditor('textarea#froala-editor')
+      </script>
 @endsection

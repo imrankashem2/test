@@ -1,25 +1,14 @@
 <div class="single_sidebar">
-    <h2><span>Popular Post</span></h2>
+    <h2><span>Popular Post</span></h2><br>
     <ul class="spost_nav">
+      @foreach (App\News::where('publicationStatus',1)->orderBy('none','DESC')->limit(4)->get() as $pops)
+
+
       <li>
-        <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-          <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 1</a> </div>
+        <div class="media wow fadeInDown"> <a href="{{route('newsshow',$pops->id)}}" class="media-left"> <img alt="" src="{{asset('storage/'.$pops->img)}}"> </a>
+          <div class="media-body"> <a href="{{route('newsshow',$pops->id)}}" class="catg_title"> {{$pops->title}}</a> </div>
         </div>
       </li>
-      <li>
-        <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-          <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 2</a> </div>
-        </div>
-      </li>
-      <li>
-        <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img1.jpg"> </a>
-          <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 3</a> </div>
-        </div>
-      </li>
-      <li>
-        <div class="media wow fadeInDown"> <a href="pages/single_page.html" class="media-left"> <img alt="" src="images/post_img2.jpg"> </a>
-          <div class="media-body"> <a href="pages/single_page.html" class="catg_title"> Aliquam malesuada diam eget turpis varius 4</a> </div>
-        </div>
-      </li>
+      @endforeach
     </ul>
   </div>

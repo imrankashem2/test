@@ -16,14 +16,11 @@ class CreateAdvertisesTable extends Migration
         Schema::create('advertises', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title')->nullable();
-            $table->string('linkTitle')->nullable();
-            $table->string('link')->nullable();
-            $table->string('hAd')->nullable();
-            $table->string('sideAd')->nullable();
+
             $table->string('singleTopAd')->nullable();
             $table->string('singleBottomAd')->nullable();
             $table->longText('description')->nullable();
-            $table->string('imgLink')->nullable();
+
             $table->text('img')->nullable();
             $table->timestamps();
         });

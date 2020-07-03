@@ -4,7 +4,7 @@
 <main>
     <div class="container-fluid">
     <div class="row" style="margin-top:50px;">
-        <a   href="http://ifwl-bd.com/news/add"> <button type="button" class="btn btn-primary">
+    <a   href="{{route('newsAdd')}}"> <button type="button" class="btn btn-primary">
             <svg class="svg-inline--fa fa-plus-square fa-w-14" aria-hidden="true" focusable="false"
             data-prefix="fas" data-icon="plus-square" role="img" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor"
@@ -20,69 +20,53 @@
       <div class="row">
         <table class="table table-hover">
             <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Image</th>
-                <th scope="col">Title</th>
-                <th scope="col">Category</th>
-                <th scope="col">News Postion</th>
-                <th scope="col">Status</th>
-                <th scope="col">Dates</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
+                <tr>
+                  <th class="text-center" width="5%">{{__('No.')}}</th>
+                  <th class="text-center" width="10%">{{__('Image')}}</th>
+                  <th class="text-center" width="25%">{{__('Title')}}</th>
+                  <th class="text-center" width="10%">{{__('Category')}}</th>
+                   <th class="text-center" width="5%">{{__('Status')}}</th>
+                  <th class="text-center" width="5%">{{__('Dates')}}</th>
+                  <th class="text-center" width="30%">{{__('Action')}}</th>
+                </tr>
+              </thead>
+            @php($i=1)
             <tbody>
 
-              <tr>
-                <td  >3</td>
-                <td  >Larry the Bird</td>
+                @foreach($news as $newss)
+                <tr>
+                  <td class="text-center">{{$i++}}</td>
+                  <td class="text-center"><img src="{{asset('storage/'.$newss->img)}}" width="80"></td>
+                  <td class="text-center">{{$newss->title}}</td>
+                  <td class="text-center">{{$newss->categoryName}}</td>
 
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
-                <td>@twitter</td>
+                  <td class="text-center">
+                    @if($newss->publicationStatus==1)
+                   <span class="badge badge-success" style="width:100%; "> Live</span>
+                    @else
+                  <span class="badge badge-danger"> Draft</span>
+                    @endif
+                  </td>
+                  <td class="text-center">{{date('m-d-Y',strtotime($newss->created_at))}}</td>
 
-                <td>
-        <a href=" "><button class="btn btn-primary">Edit</button></a>
-
-
-                      <!-- Button trigger modal -->
-  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal ">
-    Delete
-  </button>
-
-  <!-- Modal -->
-          <div class="modal fade" id="exampleModal " tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Do you want to delete?
-            </div>
-            <form action=" " method="POST">@csrf
-            <div class="modal-footer">
-              <input type="hidden" name="id" value=" ">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-danger">delete</button>
-            </div>
-        </form>
-          </div>
-          </div>
-          </div>
+                  <td >
+                 <div style="margin-left:100px;">
+                  <a href="{{route('newsEdit',$newss->id)}}"> <button type="button"
+                        class="btn btn-success btn-sm"><i class="fa far fa-edit"></i>{{__('Edit')}}</button></a>
+                        <a href="{{route('newsView',$newss->id)}}"> <button type="button"
+                        class="btn btn-warning btn-sm"><i class="fa fa-file-text-o"></i> {{__('Details')}}</button></a>
+                   <form action="{{route('newsDelete',$newss->id)}}" method="POST">@csrf <button type="submit"
+                        class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> {{__('Delete')}}</button></form>
 
 
+                    </div>
+                  </td>
+                </tr>
+                @endforeach
 
-
-                </td>
-              </tr>
             </tbody>
           </table>
+          {{$news->links()}}
       </div>
     </div>
  </main>

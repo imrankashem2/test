@@ -16,7 +16,7 @@ class CreateNewsTable extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title')->nullable();
-            $table->integer('category')->nullable();
+            $table->unsignedBigInteger('category');
             $table->integer('headlines')->nullable();
             $table->integer('latestNews')->nullable();
             $table->integer('primeNews')->nullable();
@@ -27,6 +27,9 @@ class CreateNewsTable extends Migration
             $table->tinyInteger('publicationStatus')->nullable();
             $table->text('img')->nullable();
             $table->timestamps();
+            $table->foreign('category')->references('id')->on('categories')->onDelete('cascade');
+
+
         });
     }
 

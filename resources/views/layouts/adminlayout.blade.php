@@ -7,13 +7,20 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
+        <link rel="stylesheet" href="{{asset('backend/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{asset('backend/bower_components/font-awesome/css/font-awesome.min.css')}}">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="{{asset('backend/bower_components/Ionicons/css/ionicons.min.css')}}">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{asset('backend/dist/css/AdminLTE.min.css')}}">
         <link href="{{asset('assets/css/styles.css')}}" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">Start Bootstrap</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
+            <a class="navbar-brand" href="index.html">Admin template</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button
             ><!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -25,12 +32,27 @@
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a><a class="dropdown-item" href="#">Activity Log</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <i class="fas fa-user fa-fw"></i>
+                    </a>
+                    {{-- {{ Auth::user()->name }} --}}
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href=""
+                           >
+                            {{ __('Profile') }}
+                        </a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </li>
             </ul>
@@ -43,38 +65,45 @@
 
 
 
-                            <a class="nav-link" href="index.html"
+                            <a class="nav-link" href="{{route('dashboard')}}"
                             ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard</a
                         >
-                        <a class="nav-link" href="index.html"
+                        <a class="nav-link" href="{{route('categories')}}"
                         ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Categories</a
                     >
-                    <a class="nav-link" href="index.html"
+                    <a class="nav-link" href="{{route('news')}}"
                     ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     News</a
                 >
-                <a class="nav-link" href="index.html"
+                <a class="nav-link" href="{{route('ads')}}"
                 ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                 Advertise</a
             >
-            <a class="nav-link" href="index.html"
+            <a class="nav-link" href="{{route('logos')}}"
             ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
             Logos</a
         >
-        <a class="nav-link" href="index.html"
+        <a class="nav-link" href="{{route('favicon')}}"
         ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-        favicon</a
+        AdsPrice</a
     >
-    <a class="nav-link" href="index.html"
+    <a class="nav-link" href="{{route('footer')}}"
     ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-    Footer</a
->
-<a class="nav-link" href="index.html"
-><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-Post of the day</a
->
+    Footer</a>
+    <a class="nav-link" href="{{route('live')}}"
+    ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+    Live News </a
+     >
+     <a class="nav-link" href="{{route('survey')}}"
+     ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+     Survey</a>
+     <a class="nav-link" href="{{route('follow')}}"
+     ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+     follow</a>
+
+
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
